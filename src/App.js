@@ -12,12 +12,13 @@ import LandingPageContainer from './LandingPageContainer'
 import IntakeContainer from './IntakeContainer'
 import ProjectContainer from './ProjectContainer'
 import RegisterContainer from './RegisterContainer'
+import LoginContainer from './LoginContainer'
 
 class App extends Component {// is it possible to cobine react-router with conditional rendering.
   constructor(props){
     super(props)
     this.state = {
-      loggedIn: true
+      loggedIn: false
     }
   }
   register = async (registerInfo) => {
@@ -46,16 +47,69 @@ class App extends Component {// is it possible to cobine react-router with condi
       }
     }
   }
-  render (){
+
+  login = async (log) => {
+  console.log("this is the login param", log);
+
+  const url = process.env.REACT_APP_API_URL + '/api/v1/user/login'
+
+  try {
+    const loginResponse = await fetch(url, {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify(log), 
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    // const loginJson = await loginResponse.json()//contains user's id and info
+
+    if (loginResponse.status === 200) { 
+      this.setState({
+          loggedIn: true
+        })
+    }
+
+  } catch (err){
+      if (err) {
+        console.error(err);
+    }
+  }
+}
+
+logout = async () => {
+  console.log("hitting the logout function");
+  const url = process.env.REACT_APP_API_URL + '/api/v1/user/logout'
+  try {
+      const logoutResponse = await fetch(url, {
+      method:'GET',
+      credentials:'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const logoutJson = await logoutResponse.json()
+    console.log("logoutJson >>>", logoutJson);
+  
+  } catch (err){
+      if (err) {
+        console.error(err);
+    }
+  }
+} 
+
+render (){
     console.log("this is process.env", process.env);
-    const navButton = this.state.loggedIn ?
-        <li>             
-          Logout
-        </li>
-        :
-        <li>             
-          Login/Register
-        </li>
+    // const navButton = this.state.loggedIn ?
+    //     <li>             
+    //       Logout
+    //     </li>
+    //     :
+    //     <li>             
+    //       Login/Register
+    //     </li>
+
+    // {navButton}//move down later
     return (
       <Router> 
             <h1>headWay</h1>
@@ -66,9 +120,19 @@ class App extends Component {// is it possible to cobine react-router with condi
                     LandingPage
                   </Link>
                 </li>
+                <li> 
+                  <Link  to="/auth-login" onClick={this.logout}>            
+                    Logout
+                  </Link>
+                </li>
                 <li>             
                   <Link to="/auth-register" > 
                     Register
+                  </Link>
+                </li>
+                <li>             
+                  <Link to="/auth-login" > 
+                    Login
                   </Link>
                 </li>
                  <li>             
@@ -81,13 +145,16 @@ class App extends Component {// is it possible to cobine react-router with condi
                     Project Sheet
                   </Link>
                 </li>
-                {navButton}
+                
               </ul>
             </nav>
 
             <Switch>
               <Route path="/auth-register">
                 <RegisterContainer register={this.register}/>
+              </Route>
+              <Route path="/auth-login">
+                <LoginContainer login={this.login}/>
               </Route>
               <Route path="/intake">
                 <IntakeContainer />
