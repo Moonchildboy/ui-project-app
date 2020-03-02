@@ -151,6 +151,25 @@ compileProjects = async () => {
   }
 }
 
+deleteProject = async (id) => { 
+  console.log("the delete funtion is firing", id);
+  try{
+    const url = await fetch(process.env.REACT_APP_API_URL + "/api/v1/project/" + id, {
+      method: 'DELETE',
+      credentials: 'include'
+    })
+    const deleteProjectJson = await url.json()
+    if (deleteProjectJson.status === 200) {
+      this.setState({
+        projects: this.state.projects.filter(project => project.id != id)
+      })
+  } else {
+    throw new Error('could not delete dog')
+  }
+  } catch (err){
+    console.error(err);
+  }
+}
 
 editProject = (idOfProjectToEdit) => {
     // console.log("here's the id of the dog we want to edit");
@@ -252,7 +271,7 @@ render (){
               </Route>
               <Route path="/intake">
                 <NewProjectContainer createProject={this.createProject}/>
-                <ProjectList projects={this.state.projects} projectToEdit={this.state.idOfProjectToEdit} updateProject={this.updateProject}/>
+                <ProjectList projects={this.state.projects} projectToEdit={this.state.idOfProjectToEdit} updateProject={this.updateProject} deleteProject={this.deleteProject}/>
               </Route>
               <Route path="/goal">
                 <GoalContainer />

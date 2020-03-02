@@ -14,25 +14,25 @@ class EditProjectContainer extends Component {
     }
   }
 
-  componentDidMount() {						
-this.setState({						
-title:  this.props.projectToEdit.title,						
-start_date:  this.props.projectToEdit.start_date,						
-end_date:  this.props.projectToEdit.end_date						
-status:  this.props.projectToEdit.status						
-priority:  this.props.projectToEdit.priority						
-})						
+componentDidMount() {						
+	this.setState({						
+		title:  this.props.projectToEdit.title,						
+		start_date:  this.props.projectToEdit.start_date,						
+		end_date:  this.props.projectToEdit.end_date						
+		status:  this.props.projectToEdit.status						
+		priority:  this.props.projectToEdit.priority						
+	})						
 }						
 						
 handleChange = (event) => {						
-this.setState({						
-[event.target.name]: event.target.value						
-})						
+	this.setState({
+		[event.target.name]: event.target.value						
+	})						
 }						
 						
-handleSubmit = (event) => {						
-event.preventDefault()						
-this.props.updateProject(this.state)						
+handleSubmit = (event) => {
+	event.preventDefault()
+	this.props.updateProject(this.state)						
 }						
 						
 render(){						
@@ -40,7 +40,7 @@ console.log(this.state);
 return (						
 		<div>				
 		<h1> This is the Intake Container</h1>				
-			<form onSubmit={this.handleCreate}>			
+			<form onSubmit={this.handleSubmit}>			
 				<input		
 				type="text"		
 				name="title"		

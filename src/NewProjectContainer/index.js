@@ -52,14 +52,14 @@ render(){
 console.log(this.state);	
 return (
 		 <div>
-		   <h1> This is the Intake Container</h1>
+		   <h1> Add a New Project :</h1>
 	   		<form onSubmit={this.handleCreate}>
 				<input
-				type="text"
-				name="title"
-				placeholder="project_title"
-				value={this.state.title}
-				onChange={this.handleChange}
+					type="text"
+					name="title"
+					placeholder="project_title"
+					value={this.state.title}
+					onChange={this.handleChange}
 				/>
 				<label><small>start:</small>
 					<input
