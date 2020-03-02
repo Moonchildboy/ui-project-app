@@ -102,7 +102,6 @@ return (
 					<option>Low</option>
 					<option>Canceled</option>
 				</select>
-
 				<button>submit project</button>
 			</form>
 				<button>add goal</button>

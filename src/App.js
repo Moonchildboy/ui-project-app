@@ -13,6 +13,7 @@ import NewProjectContainer from './NewProjectContainer'
 import GoalContainer from './GoalContainer'
 import RegisterContainer from './RegisterContainer'
 import LoginContainer from './LoginContainer'
+import ProjectList from './ProjectList'
 
 class App extends Component {// is it possible to cobine react-router with conditional rendering.
   constructor(props){
@@ -162,7 +163,12 @@ render (){
                 </li>
                  <li>             
                   <Link to="/intake" > 
-                    Project Sheet
+                    +New
+                  </Link>
+                </li>
+                <li>             
+                  <Link to="/project list" > 
+                    Project List
                   </Link>
                 </li>
                 <li>             
@@ -184,6 +190,9 @@ render (){
               </Route>
               <Route path="/intake">
                 <NewProjectContainer createProject={this.createProject}/>
+              </Route>
+              <Route path="/project list">
+                <ProjectList projects={this.state.projects}/>
               </Route>
               <Route path="/goal">
                 <GoalContainer />
