@@ -1,29 +1,36 @@
 import React, { Component } from 'react'
-import { Card, Button } from 'semantic-ui-react'	
+import { Card, Button, Form, Input } from 'semantic-ui-react'	
 	
-	function ProjectList(props) {
-		let colors = ["red","orange","yellow","olive","green","teal","blue","violet","purple","pink","brown","grey","black"]
-		const projects = props.projects.map((project) => {
-			let color = colors[Math.floor(Math.random() * colors.length) - 1]
+	//convert to a class component to emulate the EditDogModal
+	class ProjectList extends Component {
+		constructor(props){
+			super(props)
+			this.state ={
+
+			}
+		}
+	render(){
+		const projects = this.props.projects.map((project) => {
+			return(
+				<Card key={project.id} centered={true}>
+					<h1>this is the project list</h1>
+					<Card.Content>
+						<Card.Header>
+							<Input value={project.title}/>
+							<Input value={project.start_date}/>
+							<Input value={project.end_date}/>
+							<Input value={project.status}/>
+							<Input value={project.priority}/>
+						</Card.Header>
+					</Card.Content>
+				</Card>)
+		})
+
 		return(
-			<Card key={project.id} centered={true} color={color} >
-			<h1>this is the project list</h1>
-				<Card.Content>
-					<Card.Header>
-						{project.title}
-						{project.start_date}
-						{project.end_date}
-						{project.status}
-						{project.priority}
-					</Card.Header>
-				</Card.Content>
-			</Card>
-	)
-	})
-return(
-    <Card.Group>
-      {projects}
-    </Card.Group>
-  )
+		    <Card.Group>
+		      {projects}
+		    </Card.Group>
+	  )
+	}
 }
 export default ProjectList

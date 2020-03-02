@@ -20,8 +20,12 @@ class App extends Component {// is it possible to cobine react-router with condi
     super(props)
     this.state = {
       loggedIn: false,
-      projects:[]
+      projects:[],
+      idOfProjectToEdit: -1
     }
+  }
+  componentDidMount(){
+    this.compileProjects()
   }
   register = async (registerInfo) => {
     console.log("register() in App.js called with the following info", registerInfo);
@@ -111,6 +115,7 @@ createProject = async (newProj) => {
         }
     })
     const createProjectJson = await createProjectResponse.json()
+    this.compileProjects()
     if(createProjectResponse.status === 201) {
 
       // const newArr = this.state.projects
@@ -120,8 +125,70 @@ createProject = async (newProj) => {
           projects: [...this.state.projects, createProjectJson.data]
         })
     }
-  }catch(err){console.error(err);}
-} 
+  } catch(err){
+    console.error(err);
+  }
+}
+
+compileProjects = async () => {
+  console.log('compileProjects called');
+  const url = process.env.REACT_APP_API_URL + '/api/v1/project/'
+  try{
+    const projectResponse = await fetch(url, {
+      method:'GET',
+      credentials:'include',
+      headers: {
+      'Content-Type': 'application/json'
+      }
+    })
+    const projectJson = await projectResponse.json()
+    console.log("testing the project Json", projectJson);
+    this.setState({
+      projects: projectJson.data
+    })
+  } catch (err){
+    console.error(err);
+  }
+}
+
+
+editProject = (idOfProjectToEdit) => {
+    // console.log("here's the id of the dog we want to edit");
+    // console.log(idOfDogToEdit);
+    // console.log()
+    this.setState({
+      idOfProjectToEdit: idOfProjectToEdit
+    })
+  }
+
+updateProject = async (editProj) => {
+  try {
+    const updateProjectResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/project/" + this.state.idOfProjectToEdit,
+    {
+      method: 'PUT',
+      body: JSON.stringify(editProj),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const updatedProjectJson = await updateProjectResponse.json();
+    this.compileProjects()
+    if(updateProjectResponse.status === 200) {
+      const newProjectArrayWithUpdatedProject = this.state.projects.map((project) => {
+        if(project.id === this.state.idOfProjectToEdit) {
+          return updatedProjectJson.data
+        } else {
+          return project
+        }
+      })
+      this.setState({
+        projects: newProjectArrayWithUpdatedProject
+      })
+    }
+  } catch(err) {
+    console.error(err)
+  }
+}
 
 render (){
     console.log("this is process.env", process.env);
@@ -167,11 +234,6 @@ render (){
                   </Link>
                 </li>
                 <li>             
-                  <Link to="/project list" > 
-                    Project List
-                  </Link>
-                </li>
-                <li>             
                   <Link to="/goal" > 
                     Goal Sheet
                   </Link>
@@ -190,9 +252,7 @@ render (){
               </Route>
               <Route path="/intake">
                 <NewProjectContainer createProject={this.createProject}/>
-              </Route>
-              <Route path="/project list">
-                <ProjectList projects={this.state.projects}/>
+                <ProjectList projects={this.state.projects} projectToEdit={this.state.idOfProjectToEdit} updateProject={this.updateProject}/>
               </Route>
               <Route path="/goal">
                 <GoalContainer />

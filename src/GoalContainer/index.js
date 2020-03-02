@@ -9,10 +9,11 @@ class GoalContainer extends Component {
 
 		}
 	}
+	
 	render(){
 		return(
 			<div>
-				<h1>this is the Goal (CRUD) Container</h1>
+				<h1>this is the Goal (CRUD) Container</h1><small>will contain gantt</small>
 			</div>
 			)
 	}

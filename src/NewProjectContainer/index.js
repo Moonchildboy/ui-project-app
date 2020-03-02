@@ -63,18 +63,18 @@ return (
 				/>
 				<label><small>start:</small>
 					<input
-						type="date"
-						name="start_date"
-						value={this.state.start_date}
-						onChange={this.handleChange}
+					type="date"
+					name="start_date"
+					value={this.state.start_date}
+					onChange={this.handleChange}
 					/>
 				</label>
 				<label><small>end:</small>
 					<input
-						type="date"
-						name="end_date"
-						value={this.state.end_date}
-						onChange={this.handleChange}
+					type="date"
+					name="end_date"
+					value={this.state.end_date}
+					onChange={this.handleChange}
 				/>
 				</label>
 				<select 
@@ -97,6 +97,7 @@ return (
 				value={this.state.priority}
 				onChange={this.handleChange}
 				>
+					<option>None</option>
 					<option>High</option>
 					<option>Medium</option>
 					<option>Low</option>
@@ -104,7 +105,6 @@ return (
 				</select>
 				<button>submit project</button>
 			</form>
-				<button>add goal</button>
 
 		 </div>
   			);
