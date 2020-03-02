@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // used npm i for the following
 import { Form, Button, Label, Header, Modal } from 'semantic-ui-react'
-import ProjectContainer from '../ProjectContainer'
+import GoalContainer from '../GoalContainer'//renders goal in relation to project
 
  class LandingPageContainer extends Component {
   constructor(props){
@@ -10,11 +10,30 @@ import ProjectContainer from '../ProjectContainer'
       something:""
     }
   }
+
+
+updateProject = async () => {
+  try{
+    const getUpdate = await fetch(process.env.REACT_APP_API + '/api/v1/project/id')
+  }catch(err){console.error(err);}
+} 
 render(){
   return (
-     <div>
-       <h1> This is the LandingPageContainer</h1>
-     </div>
+    <div>
+       <h1> This is the Landing Page Container</h1>
+      <div className="lP">
+        <div className="portals">
+          <div className="intake">
+            <div>
+              
+            </div>
+          </div>
+          <div className="project">
+          .
+      </div>
+      </div>
+      </div>
+      </div>
   );
   }
 } 
