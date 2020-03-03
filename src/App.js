@@ -14,6 +14,7 @@ import GoalContainer from './GoalContainer'
 import RegisterContainer from './RegisterContainer'
 import LoginContainer from './LoginContainer'
 import ProjectList from './ProjectList'
+// a component that will track state for each editable card
 
 class App extends Component {// is it possible to cobine react-router with conditional rendering.
   constructor(props){
@@ -272,6 +273,7 @@ render (){
               <Route path="/intake">
                 <NewProjectContainer createProject={this.createProject}/>
                 <ProjectList projects={this.state.projects} projectToEdit={this.state.idOfProjectToEdit} updateProject={this.updateProject} deleteProject={this.deleteProject}/>
+
               </Route>
               <Route path="/goal">
                 <GoalContainer />
