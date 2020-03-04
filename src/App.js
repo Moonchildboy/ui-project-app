@@ -8,9 +8,8 @@ import {
   Link,
   useParams
 } from 'react-router-dom'
-import LandingPageContainer from './LandingPageContainer'
 import NewProjectContainer from './NewProjectContainer'
-import GoalContainer from './GoalContainer'
+import NewGoalContainer from './NewGoalContainer'
 import RegisterContainer from './RegisterContainer'
 import LoginContainer from './LoginContainer'
 import ProjectList from './ProjectList'
@@ -22,14 +21,12 @@ class App extends Component {// is it possible to cobine react-router with condi
     this.state = {
       loggedIn: false,
       projects:[],
-      idOfProjectToEdit: -1
     }
   }
   componentDidMount(){
     this.compileProjects()
   }
   register = async (registerInfo) => {
-    console.log("register() in App.js called with the following info", registerInfo);
     const url = process.env.REACT_APP_API_URL + '/api/v1/user/register'
 
     try {
@@ -56,7 +53,6 @@ class App extends Component {// is it possible to cobine react-router with condi
   }
 
   login = async (log) => {
-  console.log("this is the login param", log);
 
   const url = process.env.REACT_APP_API_URL + '/api/v1/user/login'
 
@@ -85,7 +81,6 @@ class App extends Component {// is it possible to cobine react-router with condi
 }
 
 logout = async () => {
-  console.log("hitting the logout function");
   const url = process.env.REACT_APP_API_URL + '/api/v1/user/logout'
   try {
       const logoutResponse = await fetch(url, {
@@ -96,7 +91,6 @@ logout = async () => {
       }
     })
     const logoutJson = await logoutResponse.json()
-    console.log("logoutJson >>>", logoutJson);
   
   } catch (err){
       if (err) {
@@ -132,7 +126,6 @@ createProject = async (newProj) => {
 }
 
 compileProjects = async () => {
-  console.log('compileProjects called');
   const url = process.env.REACT_APP_API_URL + '/api/v1/project/'
   try{
     const projectResponse = await fetch(url, {
@@ -143,7 +136,6 @@ compileProjects = async () => {
       }
     })
     const projectJson = await projectResponse.json()
-    console.log("testing the project Json", projectJson);
     this.setState({
       projects: projectJson.data
     })
@@ -153,7 +145,6 @@ compileProjects = async () => {
 }
 
 deleteProject = async (id) => { 
-  console.log("the delete funtion is firing", id);
   try{
     const url = await fetch(process.env.REACT_APP_API_URL + "/api/v1/project/" + id, {
       method: 'DELETE',
@@ -172,21 +163,13 @@ deleteProject = async (id) => {
   }
 }
 
-editProject = (idOfProjectToEdit) => {
-    // console.log("here's the id of the dog we want to edit");
-    // console.log(idOfDogToEdit);
-    // console.log()
-    this.setState({
-      idOfProjectToEdit: idOfProjectToEdit
-    })
-  }
-
-updateProject = async (editProj) => {
+updateProject = async (newValue) => {
   try {
-    const updateProjectResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/project/" + this.state.idOfProjectToEdit,
+    const updateProjectResponse = await fetch(process.env.REACT_APP_API_URL + "/api/v1/project/" + newValue.id,
     {
       method: 'PUT',
-      body: JSON.stringify(editProj),
+      credentials: 'include',
+      body: JSON.stringify(newValue),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -228,11 +211,6 @@ render (){
             <h5>track your batting average</h5>
             <nav>
               <ul>
-                <li>             
-                  <Link to="/" > 
-                    LandingPage
-                  </Link>
-                </li>
                 <li> 
                   <Link  to="/auth-login" onClick={this.logout}>            
                     Logout
@@ -258,7 +236,6 @@ render (){
                     Goal Sheet
                   </Link>
                 </li>
-                
               </ul>
             </nav>
            {navButton}
@@ -272,14 +249,7 @@ render (){
               </Route>
               <Route path="/intake">
                 <NewProjectContainer createProject={this.createProject}/>
-                <ProjectList projects={this.state.projects} projectToEdit={this.state.idOfProjectToEdit} updateProject={this.updateProject} deleteProject={this.deleteProject}/>
-
-              </Route>
-              <Route path="/goal">
-                <GoalContainer />
-              </Route>
-              <Route path="/">
-                <LandingPageContainer />
+                <ProjectList projects={this.state.projects} updateProject={this.updateProject} deleteProject={this.deleteProject}/>
               </Route>
             </Switch>
         </Router>
@@ -288,6 +258,9 @@ render (){
   }
 } 
 
+              // <Route path="/goal">
+              //   <NewGoalContainer />
+              // </Route>
 // function Dummy() {
 //   return(<h1>Dummy</h1>)
 // }
