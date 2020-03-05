@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Button, Form, Input, Select } from 'semantic-ui-react'	
+import { Card, Button, Form, Input } from 'semantic-ui-react'	
 import NewGoalContainer from '../NewGoalContainer'
 
 class ProjectCard extends Component {
@@ -56,7 +56,7 @@ closeModal = () => {
 }
 
 render(){
-	console.log("render >>> this.state ", this.state);
+	// console.log("render >>> this.state ", this.state);
 	if(this.state.showNewGoalForm === true){
 		return <NewGoalContainer project={this.state} closeModal={this.closeModal}/>
 	} else {

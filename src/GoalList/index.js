@@ -1,18 +1,19 @@
-import React, { Component } from 'react'
-import { Card, Button, Form, Input, Select, Modal, Header, List } from 'semantic-ui-react'
-
+import React from 'react'
+import { List } from 'semantic-ui-react'
+import GoalGridContainer from '../GoalGridContainer'
 
 
 function GoalList (props) {				
-				
-		const goals = props.compileGoals.map((goal) => {		
+	//after creating a "view goal btn" in ProJect Card, use {goal.title} to list goals				
+		const goals = props.compileGoals.map((goal) => {// props coming from NewGoalContainer << should compileGoals take a param and a body? 	
+			// console.log("this is goal in GoalList", goal);
 			return(	
 				<List key={goal.id}>
-					{goal.title}
+					<GoalGridContainer rowValue={goal} updateGoal={props.updateGoal} delete={props.deleteGoal}/>
 				</List>
 				)
 		})		
-return(		
+		return(		
 			<div>
 				{goals}
 			</div>

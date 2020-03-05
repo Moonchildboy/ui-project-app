@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import { 
   BrowserRouter as Router, 
   Switch, 
   Route, 
-  Link,
-  useParams
+  Link
+  // useParams
 } from 'react-router-dom'
 import NewProjectContainer from './NewProjectContainer'
-import NewGoalContainer from './NewGoalContainer'
+// import NewGoalContainer from './NewGoalContainer'
 import RegisterContainer from './RegisterContainer'
 import LoginContainer from './LoginContainer'
 import ProjectList from './ProjectList'
@@ -46,9 +46,9 @@ class App extends Component {// is it possible to cobine react-router with condi
       const registerJson = await registerResponse.json()
 
     } catch (err) {
-      if(err) {
+      
         console.error(err)
-      }
+      
     }
   }
 
@@ -153,10 +153,10 @@ deleteProject = async (id) => {
     const deleteProjectJson = await url.json()
     if (deleteProjectJson.status === 200) {
       this.setState({
-        projects: this.state.projects.filter(project => project.id != id)
+        projects: this.state.projects.filter(project => project.id !== id)
       })
   } else {
-    throw new Error('could not delete dog')
+    throw new Error('could not delete')
   }
   } catch (err){
     console.error(err);
@@ -194,7 +194,7 @@ updateProject = async (newValue) => {
 }
 
 render (){
-    console.log("this is process.env", process.env);
+    // console.log("this is process.env", process.env);
     const navButton = this.state.loggedIn ?
         <li>             
           Logout

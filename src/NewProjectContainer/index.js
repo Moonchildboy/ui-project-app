@@ -49,8 +49,8 @@ handleCreate = async (event) => {
 // dynamically create jsx options tags
 
 render(){
-	console.log(this.props);
-	console.log(this.state);	
+	// console.log(this.props);
+	// console.log(this.state);	
 	return (
 			 <div>
 			   <h1> Add a New Project :</h1>

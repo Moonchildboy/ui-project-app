@@ -1,7 +1,11 @@
-import React, { Component } from 'react'
-import { Card, Button, Form, Input } from 'semantic-ui-react'
+import React from 'react'
+import { Card } from 'semantic-ui-react'
 import ProjectCard from '../ProjectCard'	
-	
+	//TRACKING PROPS:
+		/*
+				App.js <<<<------ update={props.updateProject}
+				App.js <<<<------ delete={props.deleteProject}
+		*/ 
 	//convert to a class component to emulate the EditDogModal
 function ProjectList (props) {
 
