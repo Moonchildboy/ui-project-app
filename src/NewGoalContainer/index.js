@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Input, Select, Modal, Header } from 'semantic-ui-react'
 import { Doughnut, Line, Gantt } from 'react-chartjs-2';
 import ProjectCard from '../ProjectCard'
+import GoalList from '../GoalList'
 
 class NewGoalContainer extends Component {
 	constructor(props){
@@ -99,6 +100,7 @@ render(){
 	console.log("here is this.props in render() in NewGoalContainer");
 	console.log(this.props);
 	console.log("these are goals", this.state.goals);
+
 	return(
 	<Modal open={true} closeIcon={true} onClose={this.props.closeModal}>
     	<Header>Create a Goal: </Header>
@@ -120,6 +122,9 @@ render(){
 				/>
 				<button>temp. btn</button>
 			</form>
+			
+			<GoalList compileGoals={this.state.goals}/>
+
 		</Modal.Content>
 		</Modal>
 		)

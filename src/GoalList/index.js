@@ -1,17 +1,21 @@
 import React, { Component } from 'react'
+import { Card, Button, Form, Input, Select, Modal, Header, List } from 'semantic-ui-react'
+
 
 
 function GoalList (props) {				
 				
-		const goals = props.goals.map((goal) => {		
+		const goals = props.compileGoals.map((goal) => {		
 			return(	
-				goal.title
+				<List key={goal.id}>
+					{goal.title}
+				</List>
 				)
 		})		
 return(		
-	<Card.Group>		
-		{goals}		
-	</Card.Group>
+			<div>
+				{goals}
+			</div>
 		)		
 }				
 export default GoalList				
