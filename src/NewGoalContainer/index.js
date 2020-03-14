@@ -4,6 +4,7 @@ import { Button, Form, Input, Modal, Header } from 'semantic-ui-react'
 // import ProjectCard from '../ProjectCard'
 // import GoalGridContainer from '../GoalGridContainer'
 import GoalList from '../GoalList'
+//look into styling semantic
 
 class NewGoalContainer extends Component {
 	constructor(props){
@@ -41,7 +42,6 @@ createGoal = async (newGoal) => {
 				'Content-Type': 'application/json'
 			}
 		})
-
 		const createGoalJson = await createGoalResponse.json()
 		// console.log(createGoalJson);
 		if(createGoalResponse.status === 201) {
@@ -156,6 +156,11 @@ handleCreate = async (event) => {
 
 }
 
+addTask = () => {
+	this.setState({
+		seeTasks:true
+	})
+}
 //is there anywhere where components are rendered on a click? 
 	// put this after the close icon once defined: onClose={this.props.closeModal}
 
@@ -163,28 +168,20 @@ render(){
 	console.log("here is this.props in render() in NewGoalContainer");
 	console.log(this.props);
 	console.log("these are goals", this.state.goals);
-
 	const goalList=this.state.goals.length?<GoalList compileGoals={this.state.goals} updateGoal={this.updateGoal} deleteGoal={this.deleteGoal}/>:<p>no goals yet</p>
 	return(
 	<Modal open={true} closeIcon={true} onClose={this.props.closeModal}>
-    	<Header>Create a Goal: interpolate proect title here </Header>
+    	<Header className="goal-modal">{this.props.project.title} </Header>
 	    	<Modal.Content>
 				<Form onSubmit={this.handleCreate}>
 					<Input
 					type="text"
 					name="title"
-					placeholder="goal_title"
+					placeholder="add a goal"
 					value={this.state.title}
 					onChange={this.handleChange}
 					/>
-					<Input
-					type="checkbox"
-					name="complete"
-					value={this.state.complete}
-					onChange={this.handleChange}
-					onClick={this.handleStatus}
-					/>
-					<Button>btn</Button>
+					<Button>➕</Button>
 				</Form>
 				{goalList}
 			</Modal.Content>

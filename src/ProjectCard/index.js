@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Card, Button, Form, Input } from 'semantic-ui-react'	
 import NewGoalContainer from '../NewGoalContainer'
 
+
+
 class ProjectCard extends Component {
   constructor() {
     super()
@@ -62,8 +64,8 @@ render(){
 	} else {
 		return (						
 			<Form onSubmit={this.handleSubmit}>
-					<Card key={this.state.id} centered={true}>
-						<Button onClick={() => this.associateGoal(this.state.id)}> +Add Goals </Button>
+					<Card key={this.state.id} style={{ margin: '10%'}}>
+						<Button onClick={() => this.associateGoal(this.state.id)}>View Goals</Button>
 						<Card.Content>
 							<Card.Header>
 								<Input
@@ -88,7 +90,7 @@ render(){
 									onChange={this.handleChange}/>
 							</Card.Header>
 						</Card.Content>
-					<Button onClick={()=>this.props.update(this.state)}>Update</Button>
+					<Button onClick={()=>this.props.update(this.state)}><i>Save Changes</i></Button>
 					<Button onClick={()=>this.props.delete(this.state.id)}>Delete</Button>
 					</Card>
 				</Form>

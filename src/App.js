@@ -206,7 +206,7 @@ render (){
 
     return (
       <div className="Nav">
-      <Router> 
+      <Router > 
             <h1>headWay</h1>
             <h5>track your batting average</h5>
             <nav>
